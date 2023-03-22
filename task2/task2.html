@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style3.css" type="text/css"/>
+  <title>Document</title>
+  <style type="text/css">
+    button {
+  outline: none; /* Для синий ободки */
+  border: 0;
+  background: transparent;
+}
+.play_btn .svg-play {display: block;}
+.play_btn .svg-pause {display: none;}
+
+.play_btn.play_btn--toggle .svg-play {display: none;}
+.play_btn.play_btn--toggle .svg-pause {display: block;}
+  </style>
+</head>
+<body>
+<button class="play_btn">
+
+<span class="menu-icon">
+<svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" fill="currentColor" class="bi bi-arrow-down-left-circle" id = "image" viewBox="0 0 16 16">
+  <path class="svg-play" fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-5.904-2.854a.5.5 0 1 1 .707.708L6.707 9.95h2.768a.5.5 0 1 1 0 1H5.5a.5.5 0 0 1-.5-.5V6.475a.5.5 0 1 1 1 0v2.768l4.096-4.097z"/>
+  <path class="svg-pause" d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-5.904-2.803a.5.5 0 1 1 .707.707L6.707 10h2.768a.5.5 0 0 1 0 1H5.5a.5.5 0 0 1-.5-.5V6.525a.5.5 0 0 1 1 0v2.768l4.096-4.096z"/>
+</svg>
+
+</span> 
+</button>
+<script>
+document.querySelector('.play_btn').addEventListener('click', function(e) {
+  e.target.closest('.play_btn').classList.toggle('play_btn--toggle');
+  alert(document.documentElement.clientWidth + "/" + document.documentElement.clientHeight)
+})
+</script>
+</body>
+
+</html>

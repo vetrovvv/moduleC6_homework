@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="sty.css">
+</head>
+<body>
+<div class="chat">
+<div class = "buttons">
+ <input class = "chat-input" id = "x" type="text" size="65">
+<button class="btn j-btn-send">Отправить сообщение</button>
+<button class="btn j-btn-geo">Гео-Локация</button>
+<p id = "status" hidden></p>
+<a id = "map-link" target="_blank"></a>
+
+</div>
+<div class = "output" id="output"></div>
+</div>
+
+<script type="text/javascript">
+const wsUri = 'wss://echo-ws-service.herokuapp.com/';
+
+const output = document.getElementById("output");
+const btnOpen = document.querySelector('.j-btn-open');
+const btnClose = document.querySelector('.j-btn-close');
+const btnSend = document.querySelector('.j-btn-send');
+let websocket;
+
+alert("Для запуска чата напишите *Начать чат*")
+
+function writeToScreen(message) {
+  let pre = document.createElement("p");
+  pre.style.wordWrap = "break-word";
+  pre.innerHTML = message;
+  output.appendChild(pre);
+}
+
+
+
+btnSend.addEventListener('click', () => {
+    let chatMessage = document.querySelector('#x').value;
+    const message = chatMessage;
+    if (message == "Начать чат" || message == "начать чат"){
+        websocket = new WebSocket(wsUri);
+        websocket.onopen = function(e){
+            writeToScreen("Соединение установлено")
+        }
+
+    }else{
+    writeToScreen(message)
+    websocket.send(message)
+    websocket.onmessage = function(event){
+    writeToScreen(event.data)
+    }
+    }
+});
+
+const status = document.querySelector('#status');
+const mapLink = document.querySelector('#map-link');
+const btn = document.querySelector('.j-btn-geo');
+
+// Функция, выводящая текст об ошибке
+const error = () => {
+  let message = 'Невозможно получить ваше местоположение';
+  writeToScreen(message)
+  websocket.send(message)
+}
+
+// Функция, срабатывающая при успешном получении геолокации
+const success = (position) => {
+  console.log('position', position);
+  const latitude  = position.coords.latitude;
+  const longitude = position.coords.longitude;
+
+  status.textContent = `Широта: ${latitude} °, Долгота: ${longitude} °`;
+  mapLink.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
+  let hrefMessage = mapLink.href
+  let link = hrefMessage;
+  let stroka = "Геотег"
+  let newlink = stroka.link(link)
+
+  writeToScreen(newlink)
+}
+
+btn.addEventListener('click', () => {
+  mapLink.href = '';
+  mapLink.textContent = '';
+  
+  if (!navigator.geolocation) {
+    status.textContent = 'Geolocation не поддерживается вашим браузером';
+  } else {
+    status.textContent = 'Определение местоположения…';
+    navigator.geolocation.getCurrentPosition(success, error);
+  }
+});
+</script>
+</body>
+</html>
+
+
+

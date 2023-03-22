@@ -1,0 +1,109 @@
+.buttons{
+width: 100%;
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+}
+.chat{
+width: 50%;
+}
+.output {
+margin-top: 2%;
+background-color: #D7D7D7;
+width: 100%;
+border-color: blue;
+border-style: inset;
+}
+
+.chat-input{
+background-color: #D7D7D7;
+border-color: blue;
+border-style: inset;
+}
+
+.form-group {
+ position: relative;
+ padding-top: 1.5rem;
+}
+
+label {
+ position: absolute;
+ top: 0;
+ font-size: var(--font-size-small);
+ opacity: 1;
+ transform: translateY(0);
+ transition: all 0.2s ease-out;
+}
+
+input:placeholder-shown + label {
+ opacity: 0;
+ transform: translateY(1rem);
+}
+.btn {
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  box-shadow: none;
+  cursor: pointer;
+  
+  display: flex;
+  margin: 5px 10px;
+  padding: 10px 15px;
+  border-radius: 1px;
+  font-size: 12px;
+  line-height: 15px;
+  text-transform: uppercase;
+  color: white;
+  background: #315efb;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  box-shadow: 0px 2px 8px 2px rgba(141,150,178,.3);
+  transform: scale(1.05);
+}
+
+.wrap_Scrollbottom {
+    width: 500px; 
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    border: 1px solid #b9b9b9;
+    position: relative;
+}
+
+/**
+* Максимальная высота этого блока должна быть 100% 
+* По достижении 100% появится скролл 
+* Блок позиционируется внизу родительского блока
+*/ 
+.container_Scrollbottom {
+    padding: 0 10px;
+    max-height: 100%;
+    overflow-y: auto;
+}
+
+/**
+* Пока нет сообщением показываем это
+*/ 
+.messages:empty::before {
+    content: 'Нет сообщений';
+    display: block;
+    padding: 20px;
+    text-align: center;
+    color: gray;
+}
+
+/**
+* Оформляем немного наши сообщения
+*/ 
+.message {
+    border: 1px solid #d0d0d0;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: beige;
+}
